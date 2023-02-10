@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap');
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+*{
+  font-family: "Quantico" !important;
+}
+body {
+  margin: 0;
+  font-family: "Quantico" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: "Quantico",sans-serif !important;
+}
