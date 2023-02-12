@@ -12,6 +12,7 @@
     "stripe": "^11.9.1"
   },
   "scripts": {
-    "start": "nodemon run start"
+    "start": "node index.js"
+
   }
 }
