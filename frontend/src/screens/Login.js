@@ -2,13 +2,15 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
+import {URL} from '../url'
+
 const Login = ({ setAlert, setMsg, setType }) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate()
     const handleclick = async () => {
 
-        const res = await axios.post('http://localhost:5000/user/login', {email,password})
+        const res = await axios.post(`${URL}/user/login`, {email,password})
         console.log(res.data)
         if (res.data.success === true) {
             setAlert(true)

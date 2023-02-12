@@ -13,6 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from 'axios';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { StaticDateTimePicker } from "@mui/x-date-pickers";
+import {URL} from '../url'
 
 const Checkout = ({ setAlert, setMsg, setType }) => {
     // 
@@ -29,7 +30,7 @@ const Checkout = ({ setAlert, setMsg, setType }) => {
         if (localStorage.getItem('token')) {
             console.log(date.toLocaleString())
             setLoading(true)
-            const res = await axios.post('http://localhost:5000/user/payment', {
+            const res = await axios.post(`${URL}/user/payment`, {
                 date:date.toLocaleString(),
                 time:time.toLocaleString(),
                 value,

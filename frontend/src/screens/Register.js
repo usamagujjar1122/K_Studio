@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Alertt from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import {URL} from '../url'
 
 const Register = ({ setAlert, setMsg, setType }) => {
     const [fullname, setFullname] = useState()
@@ -13,7 +14,7 @@ const Register = ({ setAlert, setMsg, setType }) => {
     const navigate = useNavigate()
     const handleclick = async () => {
        
-        const res = await axios.post('http://localhost:5000/user/signup', {fullname,email,password,address,phone})
+        const res = await axios.post(`${URL}/user/signup`, {fullname,email,password,address,phone})
         console.log(res.data)
         if (res.data.success === true) {
             setAlert(true)

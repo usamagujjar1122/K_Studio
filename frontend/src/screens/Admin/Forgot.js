@@ -2,6 +2,7 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
+import {URL} from '../../url'
 const Forgot = ({ setAlert, setMsg, setType }) => {
     const [email, setEmail] = useState()
     const [otp, setOtp] = useState()
@@ -11,10 +12,11 @@ const Forgot = ({ setAlert, setMsg, setType }) => {
     const [password, setPassword] = useState()
     const [newpassword, setnewpassword] = useState()
     const [confirmpassword, setconfirmassword] = useState()
+
     const navigate = useNavigate()
     const handleclick = async () => {
         setLoading(true)
-        const res = await axios.post('http://localhost:5000/user/forgot', {email})
+        const res = await axios.post(`${URL}/user/forgot`, {email})
         console.log(res.data)
         if (res.data.status === "success") {
             setAlert(true)
@@ -41,7 +43,7 @@ const Forgot = ({ setAlert, setMsg, setType }) => {
     }
     const handlefinal = async () => {
         if(newpassword===confirmpassword){
-        const res = await axios.post('http://localhost:5000/user/reset', {email,newpassword})
+        const res = await axios.post(`${URL}/user/reset`, {email,newpassword})
         console.log(res.data)
         if (res.data.success) {
             setAlert(true)

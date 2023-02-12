@@ -7,6 +7,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
+import {URL} from '../url'
+
     const Contact = ({ setAlert, setMsg, setType,alert }) => {
     const navigate = useNavigate()
     const md = useMediaQuery('(min-width:1000px)');
@@ -15,13 +17,13 @@ import EmailIcon from '@mui/icons-material/Email';
     const [email,setemail] = useState()
     const loadUser = async () => {
         if(token) {
-        const res = await axios.post('http://localhost:5000/user/loaduser', { token: token })
+        const res = await axios.post(`${URL}/user/loaduser`, { token: token })
         setname(res.data.data.fullname)
         setemail(res.data.data.email)
         }
     }
     const sendmsg = async () => {
-        const res = await axios.post('http://localhost:5000/user/msg', {name,email,subject,msg}) 
+        const res = await axios.post(`${URL}/user/msg`, {name,email,subject,msg}) 
         console.log(res.data)
         if (res.data.success) {
             setAlert(true)

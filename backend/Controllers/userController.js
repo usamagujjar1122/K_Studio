@@ -241,8 +241,8 @@ exports.payment = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `http://localhost:3000/success?value=${value}&date=${newDate}&time=${newTime}`,
-    cancel_url: `http://localhost:300/cancled`,
+    success_url: `${process.env.FRONTEND_URL}/success?value=${value}&date=${newDate}&time=${newTime}`,
+    cancel_url: `${process.env.FRONTEND_URL}/cancled`,
   });
 
   res.send({ url: session.url });
@@ -500,7 +500,7 @@ exports.forgot = async (req, res) => {
         var otp = Math.floor(100000 + Math.random() * 900000);
           // Send Email
           let info = await transporter.sendMail({
-            from: 'usmughal333@gmail.com',
+            from: process.env.EMAIL,
             to: user.email,
             subject: "K-Studio - Password Reset OTP",
             html: `<p>your otp to reset password is <h2>${otp}</h2></p>`

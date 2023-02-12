@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import axios from 'axios';
+import {URL} from '../../url'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -138,7 +139,7 @@ function EnhancedTableToolbar(props) {
   const { selected} = props;
   const { setRefresh } = props;
   const handledelete = async (selected) => {
-    const res = await axios.post('http://localhost:5000/user/delete', {selected})
+    const res = await axios.post(`${URL}/user/delete`, {selected})
     console.log(res.data)
     if(res.data.status === "success"){
       setRefresh(true)

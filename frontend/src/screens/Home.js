@@ -11,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Model from "../components/Model";
 import { Link } from "react-router-dom";
 import FIlter from "../components/Filter";
+import {URL} from '../url'
 const Home = () => {
     const images = [
         { src: 'img/portfolio/pf-1.jpg' },
@@ -34,6 +35,7 @@ const Home = () => {
     const [x, X] = useState(3);
     const [open, setOpen] = React.useState(false);
     useEffect(() => {
+        console.log(URL)
         if (lg) {
             X(3)
         } else if (md) {

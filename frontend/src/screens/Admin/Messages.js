@@ -1,12 +1,13 @@
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {URL} from '../../url'
 
 const Messages = () => {
     const [msgs,setmsgs] = useState()
     const [refresh,setrefresh] = useState(false)
     const getmsgs = async () => {
-        const res = await axios.get('http://localhost:5000/user/getmsgs')
+        const res = await axios.get(`${URL}/user/getmsgs`)
         setmsgs(res.data.data)
         console.log(res.data)
     }
@@ -14,7 +15,7 @@ const Messages = () => {
         getmsgs()
     },[refresh])
     const changestatus = async (item) => {
-        const res = await axios.post('http://localhost:5000/user/msgstatus', {item})
+        const res = await axios.post(`${URL}/user/msgstatus`, {item})
         if(res.data.status==="success"){
             setrefresh((prev)=>!prev)
         }

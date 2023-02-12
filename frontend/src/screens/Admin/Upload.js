@@ -7,6 +7,8 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {URL} from '../../url'
+
 const Upload = ({ setAlert, setMsg, setType }) => {
     const navigate = useNavigate()
     const [checked, setChecked] = useState(false)
@@ -41,7 +43,7 @@ const Upload = ({ setAlert, setMsg, setType }) => {
         );
     };
     const handleclick = async () => {
-        const res = await axios.post('http://localhost:5000/user/upload', {  image,value })
+        const res = await axios.post(`${URL}/user/upload`, {  image,value })
         if (res.data.success) {
             setAlert(true)
             setMsg(res.data.message)

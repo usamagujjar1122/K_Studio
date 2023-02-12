@@ -2,12 +2,13 @@ import { Typography } from "@mui/material"
 import { Box, Stack } from "@mui/system"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {URL} from '../url'
 
 const Orders = () => {
     const token = localStorage.getItem('token')
     const [orders, setOrders] = useState()
     const loadorders = async () => {
-        const res = await axios.post('http://localhost:5000/user/loadorders', { token: token })
+        const res = await axios.post(`${URL}/user/loadorders`, { token: token })
         setOrders(res.data.data)
     }
     useEffect(() => {

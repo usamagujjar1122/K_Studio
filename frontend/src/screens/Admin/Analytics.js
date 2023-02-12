@@ -1,3 +1,4 @@
+import {URL} from '../../url'
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import DraftsIcon from '@mui/icons-material/Drafts';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -46,6 +47,7 @@ import { Link } from "react-router-dom";
   
   
 const Analytics = () => {
+  
   const [msgs,setmsgs] = useState()
   const [orders,setorders] = useState()
   const [imgs,setimgs] = useState()
@@ -57,11 +59,11 @@ const Analytics = () => {
     const No_Orders = []
   const loaddata = async () =>{
     
-      const res = await axios.get('http://localhost:5000/user/getmsgs')
+      const res = await axios.get(`${URL}/user/getmsgs`)
       setmsgs(res.data.data)
-      const res1 = await axios.get('http://localhost:5000/user/getorders')
+      const res1 = await axios.get(`${URL}/user/getorders`)
       setorders(res1.data.data)
-      const res3 = await axios.get('http://localhost:5000/user/loadimgs')
+      const res3 = await axios.get(`${URL}/user/loadimgs`)
       setimgs(res3.data.data)
       let createdat 
       let total_orders = 0
@@ -101,7 +103,7 @@ const Analytics = () => {
             },
           ],
         })
-       const res2= await axios.get('http://localhost:5000/user/getusers')
+       const res2= await axios.get(`${URL}/user/getusers`)
        setusers(res2.data.data)
   }
   // var weekday =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]

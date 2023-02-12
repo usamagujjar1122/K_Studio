@@ -1,7 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import {URL} from '../../url'
 
 const AdminLogin = ({ setAlert, setMsg, setType }) => {
+    console.log(URL)
     const [email,setEmail] = useState()
     const [password,setPassword] = useState()
     const handleclick = async () => {

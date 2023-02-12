@@ -5,17 +5,19 @@ import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import UploadIcon from '@mui/icons-material/Upload';
 import { useNavigate } from "react-router-dom";
+import {URL} from '../../url'
+
 const Portfolio = ({ setAlert, setMsg, setType }) => {
     const [imgs, setImgs] = useState()
     const [refresh, setRefresh] = useState(false)
     const navigate = useNavigate()
     const loadimgs = async () => {
-        const res = await axios.get('http://localhost:5000/user/loadimgs')
+        const res = await axios.get(`${URL}/user/loadimgs`)
         setImgs(res.data.data)
         console.log(res.data.data)
     }
     const deleteimg= async (id) => {
-        const res = await axios.post('http://localhost:5000/user/deleteimg', {id:id})
+        const res = await axios.post(`${URL}/user/deleteimg`, {id:id})
         if (res.data.status==='success') {
             setAlert(true)
             setMsg(res.data.message)

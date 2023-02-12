@@ -1,36 +1,38 @@
 import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import {URL} from '../../url'
+
 const OrdersAD = ({ setAlert, setMsg, setType }) => {
     const [orders,setorders] = useState()
     const [refresh,setrefresh] = useState(false)
     const getorders = async () => {
-        const res = await axios.get('http://localhost:5000/user/getorders')
+        const res = await axios.get(`${URL}/user/getorders`)
         setorders(res.data.data)
     }
     const approve = async (item) => {
-        const res = await axios.post('http://localhost:5000/user/approve', {item})
+        const res = await axios.post(`${URL}/user/approve`, {item})
         if(res.data.status==="success"){
             setrefresh((prev)=>!prev)
         }
         console.log(res.data)
     }
     const cancle = async (item) => {
-        const res = await axios.post('http://localhost:5000/user/cancle', {item})
+        const res = await axios.post(`${URL}/user/cancle`, {item})
         if(res.data.status==="success"){
             setrefresh((prev)=>!prev)
         }
         console.log(res.data)
     }
     const complete = async (item) => {
-        const res = await axios.post('http://localhost:5000/user/complete', {item})
+        const res = await axios.post(`${URL}/user/complete`, {item})
         if(res.data.status==="success"){
             setrefresh((prev)=>!prev)
         }
         console.log(res.data)
     }
     const deleteorder = async (item) => {
-        const res = await axios.post('http://localhost:5000/user/deleteorder', {item})
+        const res = await axios.post(`${URL}/user/deleteorder`, {item})
         if(res.data.status==="success"){
             setAlert(true)
             setMsg(res.data.message)
