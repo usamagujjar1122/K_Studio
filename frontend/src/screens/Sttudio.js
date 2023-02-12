@@ -14,7 +14,7 @@ import Login from "./Login";
 import Alertt from "../components/Alert";
 import { useState } from "react";
 import Orders from "./Orders";
-import Success from "./Success";
+import Successs from "./Success";
 import Forgot from "./Admin/Forgot";
 
 
@@ -29,18 +29,18 @@ const[user,setUser] = useState()
     <Header setUser={setUser}/>
     <Alertt type={type} msg={msg} alert={alert} setAlert={setAlert}/>
     <Routes>
-      <Route path="" element={<Home />} />
+      <Route path="" element={<Home setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
       <Route path="about" element={<About />} />
-      <Route path="/forgot" element={<Forgot setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
+      <Route path="forgot" element={<Forgot setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
       <Route path="services" element={<Services />} />
       <Route path="portfolio" element={<PortFolio />} />
-      <Route path="/contact" element={<Contact alert={alert} setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
-      <Route path="/Pricing" element={<Pricing />} />
-      <Route path="/register" element={<Register setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
-      <Route path="/login" element={<Login setAlert={setAlert} setMsg={setMsg} setType={setType} />} />
-      <Route path="/checkout" element={<Checkout setAlert={setAlert} setMsg={setMsg} setType={setType} />} />
-      <Route path="/orders" element={<Orders />} />
-      <Route path="/success" element={<Success user={user}/>} />
+      <Route path="contact" element={<Contact alert={alert} setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
+      <Route path="Pricing" element={<Pricing />} />
+      <Route path="register" element={<Register setAlert={setAlert} setMsg={setMsg} setType={setType}/>} />
+      <Route path="login" element={<Login setAlert={setAlert} setMsg={setMsg} setType={setType} />} />
+      <Route path="checkout" element={<Checkout setAlert={setAlert} setMsg={setMsg} setType={setType} />} />
+      <Route path="orders" element={<Orders />} />
+      <Route path="success" element={<Successs />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
   <Footer />

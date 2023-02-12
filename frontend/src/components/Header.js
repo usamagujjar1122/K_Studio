@@ -1,45 +1,56 @@
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Collapse from '@mui/material/Collapse';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Popover from '@mui/material/Popover';
+import {URL} from '../url'
 const Header = () => {
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
-
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     const [checked, setChecked] = useState(false)
+    const [size, setsize] = useState(window.innerWidth)
     const [user, setUser] = useState()
     const [token, setToken] = useState(localStorage.getItem('token'))
-    const loadUser = async () => {
+    const loaduser = async () => {
         if(token) {
-        const res = await axios.post('http://localhost:5000/user/loaduser', { token: token })
+        const res = await axios.post(`${URL}/user/loaduser`, { token: token })
         setUser(res.data.data)
         }
+    } 
+    const handlewindowclick =()=>{
+        setChecked((prev)=>!prev)
     }
-    useEffect(() => {
+    
 
+    useEffect(() => {
+        const handlesize = () =>{
+        setsize(window.innerWidth)
+        console.log(window.innerWidth)
+    }
+        window.addEventListener('click',handlewindowclick)
+        window.addEventListener('resize',handlesize)
         setToken(localStorage.getItem('token'))
-        
-        loadUser()
-    },[token])
+        loaduser()
+        return (
+            window.removeEventListener('click',handlewindowclick)
+        );
+    },[])
     return (
         <>
             <Box sx={{ backgroundColor: 'white' }}>
-                <Stack direction={"row"} sx={{ padding: '30px 40px', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Stack direction={"row"} sx={{ padding: {xs:'20px 10px',md:'30px 40px'}, alignItems: 'center', justifyContent: 'space-between' }}>
 
-                    <Link to=""><Box><img src="img/logo.png" alt="" /></Box></Link>
+                    <Link to=""><Box sx={{width:size<500? "40px": 'inherit'}}><img src={size<500 ? "img/xs-logo.png" :"img/logo.png"} alt="" style={{width:"100%"}}/></Box></Link>
                     <Stack direction="row" sx={{ gap: '10px' }}>
                         {token ? user &&
                             <>
@@ -75,7 +86,7 @@ const Header = () => {
                         <Link to="/contact" style={{ textDecoration: 'none' }}><Typography sx={{ position: 'relative', '&:after': { content: '""', height: "5px", backgroundColor: "#009603", width: '100%', position: 'absolute', left: 0, bottom: '-50%', opacity: '0' }, '&:hover': { '&:after': { opacity: 1 } } }}>CONTACT</Typography></Link>
                         {token ? user &&
                             <>
-                                <Typography sx={{ position: 'relative', padding: '16px', border: '1px solid #009603', color: '#009603 !important' }}  aria-describedby={id} onClick={handleClick} >{user.fullname}</Typography>
+                                <Typography sx={{ position: 'relative', padding: '16px', border: '1px solid #009603', color: '#009603 !important',whiteSpace:'nowrap !important' }}  aria-describedby={id} onClick={handleClick} >{user.fullname}</Typography>
                             </>
                             :
                             <>
@@ -87,11 +98,11 @@ const Header = () => {
                 </Stack>
                 <Collapse in={checked}>
                     <Stack sx={{ margin: "0px 40px", backgroundColor: '#222', color: 'white' }}>
-                        <Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }}>HOME</Typography>
-                        <Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }}>ABOUT</Typography>
-                        <Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }}>SERVICES</Typography>
-                        <Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }}>PRICING</Typography>
-                        <Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }}>PORTFOLIO</Typography>
+                    <Link to="/" style={{ textDecoration: 'none',color:'white' }} ><Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }} onClick={() => { setChecked((prev) => !prev) }}>HOME</Typography></Link>
+                    <Link to="about" style={{ textDecoration: 'none',color:'white' }}><Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }} onClick={() => { setChecked((prev) => !prev) }}> ABOUT</Typography></Link>
+                    <Link to="services" style={{ textDecoration: 'none',color:'white' }}><Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }} onClick={() => { setChecked((prev) => !prev) }}>SERVICES</Typography></Link>
+                    <Link to="pricing" style={{ textDecoration: 'none',color:'white' }}><Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }} onClick={() => { setChecked((prev) => !prev) }}>PRICING</Typography></Link>
+                    <Link to="portfolio" style={{ textDecoration: 'none',color:'white' }}><Typography sx={{ position: 'relative', fontFamily: 'Quantico', padding: '16px', '&:hover': { backgroundColor: "green" } }} onClick={() => { setChecked((prev) => !prev) }}>PORTFOLIO</Typography></Link>
 
                     </Stack>
                 </Collapse>

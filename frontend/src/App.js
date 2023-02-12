@@ -29,25 +29,8 @@ function App() {
 
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Studio />} >
-      <Route path="" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/forgot" element={<Forgot />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/portfolio" element={<PortFolio />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/Pricing" element={<Pricing />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login  />} />
-      <Route path="/checkout" element={<Checkout  />} />
-      <Route path="/orders" element={<Orders />} />
-      <Route path="/success" element={<Success />} />
-      </Route>
-      <Route path="/admin/*" element={<Dashboard />} >
-        <Route path="messages" element={<Messages />} />
-        <Route path="ordersAD" element={<OrdersAD />} />
-        <Route path="users" element={<Users />} />
-      </Route>
+      <Route path="*" element={<Studio />} ></Route>
+      <Route path="/admin/*" element={<Dashboard />}></Route>
     </Routes>
 
   </BrowserRouter>

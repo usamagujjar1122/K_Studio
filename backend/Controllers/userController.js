@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const User = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 var nodemailer = require("nodemailer");
 const jwt_decode = require("jwt-decode");
@@ -102,6 +102,7 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+  console.log("login")
   try {
     const { email, password } = req.body;
     if (!email) {
@@ -241,8 +242,8 @@ exports.payment = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `${process.env.FRONTEND_URL}/success?value=${value}&date=${newDate}&time=${newTime}`,
-    cancel_url: `${process.env.FRONTEND_URL}/cancled`,
+    success_url: `${process.env.FRONTEND_URL}?value=${value}&date=${newDate}&time=${newTime}`,
+    cancel_url: `${process.env.FRONTEND_URL}`,
   });
 
   res.send({ url: session.url });

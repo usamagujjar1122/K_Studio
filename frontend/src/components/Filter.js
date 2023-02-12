@@ -47,7 +47,7 @@ const FIlter = ({active}) => {
             </Box>
         </>
         }
-        {active === 1 && <>
+        {active === 1 && filter && <>
             <Box>
                 <Grid container spacing={2}>
                     {filter.filter((item)=>item.value==="Fashion").map((item, index) => (
@@ -68,7 +68,7 @@ const FIlter = ({active}) => {
             </Box>
         </>
         }
-        {active === 2 && <>
+        {active === 2 && filter &&<>
             <Box>
                 <Grid container spacing={2}>
                     {filter.filter((item)=>item.value==="Lifestyle").map((item, index) => (
@@ -89,7 +89,7 @@ const FIlter = ({active}) => {
             </Box>
         </>
         }
-        {active === 3 && <>
+        {active === 3 && filter &&<>
             <Box>
                 <Grid container spacing={2}>
                     {filter.filter((item)=>item.value==="Nature").map((item, index) => (
@@ -110,7 +110,7 @@ const FIlter = ({active}) => {
             </Box>
         </>
         }
-        {active === 4 && <>
+        {active === 4 && filter &&<>
             <Box>
                 <Grid container spacing={2}>
                     {filter.filter((item)=>item.value==="Wedding").map((item, index) => (
@@ -131,7 +131,7 @@ const FIlter = ({active}) => {
             </Box>
         </>
         }
-        {active === 5 && <>
+        {active === 5 && filter && <>
             <Box>
                 <Grid container spacing={2}>
                     {filter.filter((item)=>item.value==="Video").map((item, index) => (

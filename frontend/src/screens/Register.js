@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Alertt from "../components/Alert";
@@ -11,20 +11,22 @@ const Register = ({ setAlert, setMsg, setType }) => {
     const [address, setAddress] = useState()
     const [password, setPassword] = useState()
     const [phone, setPhone] = useState()
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const handleclick = async () => {
-       
-        const res = await axios.post(`${URL}/user/signup`, {fullname,email,password,address,phone})
-        console.log(res.data)
+        setLoading(true)
+            const res = await axios.post(`${URL}/user/signup`, {fullname,email,password,address,phone})
         if (res.data.success === true) {
             setAlert(true)
             setMsg(res.data.message)
             setType('success')
+            setLoading(false)
             navigate('/')
         } else {
             setAlert(true)
             setMsg(res.data.message)
             setType('error')
+            setLoading(false)
         }
 
     }
@@ -49,7 +51,12 @@ const Register = ({ setAlert, setMsg, setType }) => {
                         <input type="password" style={{ border: 'none', width: '95%', fontSize: '18px', outline: 'none', padding: '10px' }} placeholder='Password' vlaue={password} onChange={(e) => { setPassword(e.target.value) }} />
                     </Box>
                     <Box sx={{ backgroundColor: '#009603', padding: '16px 32px', width: 'fit-content', cursor: 'pointer' }} onClick={handleclick} >
+                        {loading ? 
+                        <CircularProgress sx={{ color: 'white', width: "28px !important", height: '28px !important', padding: "0px 16px" }} />
+                        :
                         <Typography sx={{ color: 'white', fontWeight: 'bold' }}>REGISTER</Typography>
+                    }
+                        
                     </Box>
                 </Stack>
             </Box>

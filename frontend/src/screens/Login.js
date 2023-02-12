@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
@@ -6,23 +6,25 @@ import {URL} from '../url'
 
 const Login = ({ setAlert, setMsg, setType }) => {
     const [email, setEmail] = useState()
+    const [loading, setLoading] = useState(false)
     const [password, setPassword] = useState()
     const navigate = useNavigate()
     const handleclick = async () => {
-
+        setLoading(true)
         const res = await axios.post(`${URL}/user/login`, {email,password})
-        console.log(res.data)
         if (res.data.success === true) {
             setAlert(true)
             setMsg(res.data.message)
             setType('success')
             localStorage.setItem('token',res.data.token)
+            setLoading(false)
             navigate('/')
             window.location.reload();
         } else {
             setAlert(true)
             setMsg(res.data.message)
             setType('error')
+            setLoading(false)
         }
 
     }
@@ -39,7 +41,11 @@ const Login = ({ setAlert, setMsg, setType }) => {
                         </Box>
                         <Link to="/forgot"><Typography sx={{alignSelf:'end'}}>Forgot Passowrd?</Typography></Link>
                         <Box sx={{ backgroundColor: '#009603', padding: '16px 32px',width:'fit-content',cursor:'pointer' }} onClick={handleclick}>
-                                <Typography sx={{ color: 'white', fontWeight: 'bold' }}>LOGIN</Typography>
+                        {loading ? 
+                        <CircularProgress sx={{ color: 'white', width: "28px !important", height: '28px !important', padding: "0px 16px" }} />
+                        :
+                        <Typography sx={{ color: 'white', fontWeight: 'bold' }}>LOGIN</Typography>
+                    }
                             </Box>
             </Stack>
             </Box>

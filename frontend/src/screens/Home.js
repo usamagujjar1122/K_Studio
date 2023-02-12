@@ -9,24 +9,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Model from "../components/Model";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FIlter from "../components/Filter";
 import {URL} from '../url'
-const Home = () => {
-    const images = [
-        { src: 'img/portfolio/pf-1.jpg' },
-        { src: 'img/portfolio/pf-2.jpg' },
-        { src: 'img/portfolio/pf-3.jpg' },
-        { src: 'img/portfolio/pf-4.jpg' },
-        { src: 'img/portfolio/pf-5.jpg' },
-        { src: 'img/portfolio/pf-6.jpg' },
-        { src: 'img/portfolio/pf-7.jpg' },
-        { src: 'img/portfolio/pf-8.jpg' },
-        { src: 'img/portfolio/pf-9.jpg' },
-        { src: 'img/portfolio/pf-10.jpg' },
-        { src: 'img/portfolio/pf-11.jpg' },
-    ]
-    const [filter,setFilter] = useState(images)
+import axios  from "axios";
+const Home = ({ setAlert, setMsg, setType }) => {
     const [img, setImg] = useState()
     const [active, setActive] = useState(0)
     const sm = useMediaQuery('(min-width:0px)');
@@ -34,6 +21,28 @@ const Home = () => {
     const lg = useMediaQuery('(min-width:1200px)');
     const [x, X] = useState(3);
     const [open, setOpen] = React.useState(false);
+    const [searchParams,setSearchParams] = useSearchParams()
+    const value = searchParams.get('value')
+    const date = searchParams.get('date')
+    const time = searchParams.get('time')
+    const [token, setToken] = useState(localStorage.getItem('token'))
+    const order = async () => {
+        if(value){
+        const res = await axios.post(`${URL}/user/loaduser`, { token: token })
+        const id = res.data.data._id
+        const fullname = res.data.data.fullname
+        const response = await axios.post(`${URL}/user/order`, { value, date, time,id,fullname })
+        if(response.data.success){
+        searchParams.delete('value')
+        searchParams.delete('date')
+        searchParams.delete('time')
+        setSearchParams(searchParams)
+        setAlert(true)
+        setMsg(response.data.message)
+        setType('success')
+        }
+        }
+    }
     useEffect(() => {
         console.log(URL)
         if (lg) {
@@ -43,6 +52,7 @@ const Home = () => {
         } else if (sm) {
             X(1)
         }
+        order()
     }, [lg, md, sm])
 
     function SampleNextArrow(props) {
