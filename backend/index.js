@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const userRoutes = require('./Routes/userRoutes')
 const app = express();
-
+const PORT = process.env.PORT || 5000
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -15,6 +15,6 @@ mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser: true,useUnifiedTopolo
     .then((err)=>{console.log("connected")})
 
 
-app.listen(5000, function () {
+app.listen(PORT, function () {
   console.log("app running on 5000");
 });
